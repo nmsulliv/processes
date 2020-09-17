@@ -6,6 +6,6 @@
 # nicolesullivanmarie@gmail.com
 processes: main.c
 	gcc -o main main.c
-  
+
 clean:
-  rm main
+	-rm main
