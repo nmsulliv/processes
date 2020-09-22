@@ -3,29 +3,26 @@
 #include  <sys/types.h>
 #include  <time.h> 
 
-#define   MAX_COUNT  200
+#define   MAX  2
 
 void  ChildProcess(void);                /* child process prototype  */
 void  ParentProcess(void);               /* parent process prototype */
 
 void  main(void) {
-  pid_t  pid1, pid2;
+  int status, i;
+  int pid[MAX];
 
-  pid1 = fork();
-
-  if (pid1 == 0) {
-    ChildProcess();
-  } else {
-    pid2 = fork();
-      if (pid2 == 0) {
-        ChildProcess();
-      } else {
-         int child1 = wait(&pid1);
-         printf("Child Pid: %d has completed.\n", child1);
-         int child2 = wait(&pid2);
-         printf("Child Pid: %d has completed.\n", child2);
-      }
-  } 
+  for (i = 0; i < MAX; i++) {
+    pid[i] = fork();
+    
+    if (pid[i] == 0) {
+      ChildProcess();
+    }
+  }
+  for (i = 0; i < MAX; i++) {
+     wait(&status);
+     printf("Child Pid: %d has completed!\n", pid[i]);
+  }
 }
 
 void  ChildProcess(void) {
@@ -33,15 +30,14 @@ void  ChildProcess(void) {
   srand(time(0));
   int randomNum = (rand() % 30);
 
-   for (i = 1; i <= randomNum; i++) {
-     int randomTime = (rand() % 10);
-     pid_t child = getpid();
-     pid_t parent = getppid();
+  for (i = 1; i <= randomNum; i++) {
+    int randomTime = (rand() % 10);
+    pid_t child = getpid();
+    pid_t parent = getppid();
 
-     printf("Child Pid: %d is going to sleep!\n", child);  
-     sleep(randomTime);
-     printf(" Child Pid: %d is awake!\n Where is my Parent: %d?\n", child, parent);
-   }
+    printf("Child Pid: %d is going to sleep!\n", child);
+    fflush(stdout);
+    printf(" Child Pid: %d is awake!\n Where is my Parent: %d?\n", child, parent);
+  }
   exit(0);
 }
-
