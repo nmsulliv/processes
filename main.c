@@ -45,9 +45,3 @@ void  ChildProcess(void) {
   exit(0);
 }
 
-void  ParentProcess(void) {
-//    int child1 = waitpid(-1, &status, 0);
-//    printf("Child Pid: %d has completed.\n", child1);
-//    int child2 = waitpid(-1, &status, 0);
-//    printf("Child Pid: %d has completed.\n", child2);
-}
