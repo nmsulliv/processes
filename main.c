@@ -32,7 +32,7 @@ void  ChildProcess(void) {
   int randomNum = (rand() % 30 + 1);
 
   for (i = 1; i <= randomNum; i++) {
-    int randomTime = (rand() % 1 + 1);
+    int randomTime = (rand() % 10 + 1);
     pid_t child = getpid();
     pid_t parent = getppid();
 
