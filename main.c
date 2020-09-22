@@ -16,6 +16,8 @@ void  main(void) {
     
     if (pid[i] == 0) {
       ChildProcess();
+    } else if (pid[i] == -1) {
+      printf("Error");
     }
   }
   for (i = 0; i < MAX; i++) {
@@ -27,15 +29,15 @@ void  main(void) {
 void  ChildProcess(void) {
   int i;
   srand(time(0));
-  int randomNum = (rand() % 30);
+  int randomNum = (rand() % 30 + 1);
 
   for (i = 1; i <= randomNum; i++) {
-    int randomTime = (rand() % 10);
+    int randomTime = (rand() % 1 + 1);
     pid_t child = getpid();
     pid_t parent = getppid();
 
     printf("Child Pid: %d is going to sleep!\n", child);
-    fflush(stdout);
+    sleep(randomTime);
     printf(" Child Pid: %d is awake!\n Where is my Parent: %d?\n", child, parent);
   }
   exit(0);
